@@ -43,7 +43,14 @@ func CalculateRecoveredAmount(emiNumber int, customerLoanObject *Loan) int {
 	}
 	sort.Ints(keys)
 	earliestEMInumber := lowerBound(emiNumber, keys)
-	return (emiNumber * customerLoanObject.EMI) + (customerLoanObject.LumpSum[earliestEMInumber])
+	emiAmount := emiNumber * customerLoanObject.EMI
+	latestLumpSumAmount := customerLoanObject.LumpSum[earliestEMInumber]
+	totalRecovered := emiAmount + latestLumpSumAmount
+	if totalRecovered > customerLoanObject.AmoutToBeRecovered {
+		return customerLoanObject.AmoutToBeRecovered
+	}
+
+	return totalRecovered
 }
 
 func CalculateNoOfEMIsLeft(customerLoanObject *Loan, recoveredAmount int) int {
