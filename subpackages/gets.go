@@ -8,6 +8,14 @@ import (
 	"strings"
 )
 
+func GetFirstWord(s string) string {
+	words := strings.Fields(s)
+	if len(words) > 0 {
+		return words[0]
+	}
+	return ""
+}
+
 func CalculateInterest(customerLoanObject *Loan) int {
 	return (customerLoanObject.principal * customerLoanObject.RateOfInterest * customerLoanObject.Tenure) / 100
 }
