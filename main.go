@@ -21,7 +21,6 @@ func main() {
 		fmt.Fprintln(os.Stderr, "Please give the input file path")
 		os.Exit(1)
 	}
-
 	filename := os.Args[1]
 	file, err := os.Open(filename)
 	if err != nil {
@@ -29,13 +28,10 @@ func main() {
 		os.Exit(1)
 	}
 	defer file.Close()
-
 	scanner := bufio.NewScanner(file)
-
 	for scanner.Scan() {
 		line := scanner.Text()
 		firstWord := getFirstWord(line)
-
 		switch firstWord {
 		case "LOAN":
 			subpackages.ProcessLoan(line)
@@ -45,7 +41,6 @@ func main() {
 			subpackages.ProcessBalance(line)
 		}
 	}
-
 	if err := scanner.Err(); err != nil {
 		fmt.Fprintln(os.Stderr, "Error reading the file")
 		os.Exit(1)
